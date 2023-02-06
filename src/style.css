@@ -4,28 +4,12 @@
   margin: 0;
 }
 body {
-  font-family:  Helvetica,Helvetica Neue,Arial,Lucida Grande,sans-serif;;
-  background-color: #1c4940;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background-color: rgba(235, 203, 88, 0.25);
 }
 
-button{
-  padding-top: 10px;
-    padding-left: 20px;
-    padding-bottom: 10px;
-    padding-right: 20px;
-    border-top-width: 1px;
-    border-left-width: 1px;
-    border-bottom-width: 1px;
-    border-right-width: 1px;
-    border-color: #fff;
-    border-style: solid;
-    border-radius: 6px;
-    background-color: #252525;
-    text-align: center;
-    text-decoration: none;
-}
-
-/*button {
+button {
   background-color: rgba(239, 223, 139, 1);
   margin-left: 600px;
   margin-top: 30px;
@@ -38,9 +22,12 @@ button{
 .main__reservation {
   display: flex;
   flex-direction: column;
-  justify-content: center;  
+  
 }
 
+.main__reservation__title {
+  justify-content: center;
+}
 .main__reservation__body{
   display: flex;
   justify-content: space-evenly;
@@ -60,10 +47,11 @@ button{
 .main__reservation__add {
   flex-grow: 100;
   margin-top: 25px;
-}*/
+}
 
-/*#img__1 {
- 
+#img__1 {
+  /*margin-top: 100px;
+        margin-left: 100px;*/
   width: 500px;
   height: 280px;
   border-radius: 25px;
@@ -228,4 +216,4 @@ span {
 #message{
   font-weight: bolder;
   margin-left: 170px;
-} */
+}
