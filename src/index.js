@@ -1,86 +1,70 @@
 import validator from "./validator.js";
-function init(){  
+//secciones
+const reservation_s = document.getElementById("reservation_s");
+const form_s = document.getElementById("form_s");
+const pay_s = document.getElementById("pay_s");
+const end_s = document.getElementById("end_s");
+//botones para los eventos
 
-let form_s = document.getElementById("form_s");
+const btn_yes = document.getElementById("btn_yes");
+const btn_validator = document.getElementById("input_validation");
+const btn_pay = document.getElementById("btn_pay");
+const btn_end = document.getElementById("btn_end");
+//inputs
+const numberCard = document.getElementById("numberCard");
+const ccv = document.getElementById("ccv");
+//mensajes para el usuario
+const message = document.getElementById("message");
+
+// ocultar las secciones que no necesito mostrar al inicio
 form_s.style.display = "none";
-let btn_yes = document.getElementById("btn_yes");
-btn_yes.addEventListener("click", hiddenReservationForm)
-let btn_validator = document.getElementById("input_validation");
-btn_validator.addEventListener("click", validation)
-let btn_pay = document.getElementById("btn_pay");
-btn_pay.addEventListener("click", endReservation)
-btn_pay.style.display = "none";
-let end_s = document.getElementById("end_s");
+pay_s.style.display = "none";
 end_s.style.display = "none";
 
-let btn_end = document.getElementById("btn_end");
-btn_end.addEventListener("click", backInit);
-
-
-
-
-}
-
 //evento que me permite pasar a la siguiente vista
-function hiddenReservationForm(){
-  const reservation_s = document.getElementById("reservation_s");
+btn_yes.addEventListener("click", () => {
   reservation_s.style.display = "none";
-  const form_s = document.getElementById("form_s");
-  form_s.style.display = "flex";
-}
+  form_s.style.display = "inline-flex";
+});
 //evento que me permite pasar a validar el número de tarjeta
-function validation(){
+btn_validator.addEventListener("click", (event) => {
   event.preventDefault();
-  let btn_pay = document.getElementById("btn_pay");
-  let numberCard = document.getElementById("numberCard");
   let inputNumberCard = numberCard.value;
- console.log('antes',inputNumberCard)
-  const message = document.getElementById("message");
   let muskify = validator.maskify(inputNumberCard);
   if (inputNumberCard === "") {
-    message.innerHTML = "Ingrese un número de tarjeta";
-    
+    message.innerText = "Ingrese un número de tarjeta";
+    //¿Por qué estoy usando inner.Text y no inner.HTML?
   } else {
-    if ((inputNumberCard.length>18 && inputNumberCard.length <=19)^(inputNumberCard.length>15 && inputNumberCard.length <=16)) {
-      let input_validation = numberCard.value;
-      numberCard.value = input_validation.replace(/\s/g, '') 
-	// Eliminamos espacios en blanco
-	    console.log(numberCard.value)
-      if(muskify != " "){
-        numberCard.value = muskify
-        console.log(numberCard.value)
-        message.innerHTML = "Tarjeta válida";
-        btn_pay.style.display = "flex";
-      }
+    if (validator.isValid(inputNumberCard)) {
+      document.getElementById("numberCard").value = muskify;
 
-   
+      message.innerHTML = "Tarjeta válida";
     } else {
-      message.innerHTML = "Tarjeta inválida";
+      message.innerText = "Tarjeta inválida";
     }
   }
+});
 
-  
-}
-
+//Evento para hacer el pago
+btn_pay.addEventListener("click", (event) => {
+  event.preventDefault();
+  let ipt_c = ccv.value;
+  if (ipt_c != "") {
+    form_s.style.display = "none";
+    reservation_s.style.display = "none";
+    end_s.style.display = "none";
+    pay_s.style.display = "inline-flex";
+  } else {
+    message.innerHTML = "Complete todos los campos vacíos";
+  }
+});
 
 //evento para finalizar
-function endReservation(){
-    event.preventDefault();
-    const reservation_s = document.getElementById("reservation_s");
-    const form_s = document.getElementById("form_s");
-    const end_s = document.getElementById("end_s");
-    
-    reservation_s.style.display = "none";
-    form_s.style.display = "none";
-    end_s.style.display = "flex";
-  
- 
-}
+btn_end.addEventListener("click", (event) => {
+  event.preventDefault();
 
-
-
-function backInit(){  
-    location.reload();
-}
-
-window.addEventListener('load', init)
+  form_s.style.display = "none";
+  pay_s.style.display = "none";
+  reservation_s.style.display = "none";
+  end_s.style.display = "inline-flex";
+});
